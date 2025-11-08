@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class SteveConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.ConfigValue<String> AI_PROVIDER;
+    public static final ForgeConfigSpec.ConfigValue<String> OPENAI_API_URL;
     public static final ForgeConfigSpec.ConfigValue<String> OPENAI_API_KEY;
     public static final ForgeConfigSpec.ConfigValue<String> OPENAI_MODEL;
     public static final ForgeConfigSpec.IntValue MAX_TOKENS;
@@ -25,7 +26,7 @@ public class SteveConfig {
         builder.pop();
 
         builder.comment("OpenAI/Gemini API Configuration (same key field used for both)").push("openai");
-        
+
         OPENAI_API_KEY = builder
             .comment("Your OpenAI API key (required)")
             .define("apiKey", "");
@@ -33,7 +34,11 @@ public class SteveConfig {
         OPENAI_MODEL = builder
             .comment("OpenAI model to use (gpt-4, gpt-4-turbo-preview, gpt-3.5-turbo)")
             .define("model", "gpt-4-turbo-preview");
-        
+
+        OPENAI_API_URL = builder
+            .comment("Base URL for the OpenAI-compatible API endpoint (e.g. http://localhost:1234/v1/chat/completions)")
+            .define("apiUrl", "https://api.openai.com/v1/chat/completions");
+
         MAX_TOKENS = builder
             .comment("Maximum tokens per API request")
             .defineInRange("maxTokens", 8000, 100, 65536);
